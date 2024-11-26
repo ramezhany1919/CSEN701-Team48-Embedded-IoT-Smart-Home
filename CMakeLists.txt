@@ -1,0 +1,77 @@
+# Generated Cmake Pico project file
+
+cmake_minimum_required(VERSION 3.13)
+
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+# Initialise pico_sdk from installed location
+# (note this can come from environment, CMake cache etc)
+
+# == DO NOT EDIT THE FOLLOWING LINES for the Raspberry Pi Pico VS Code Extension to work ==
+if(WIN32)
+    set(USERHOME $ENV{USERPROFILE})
+else()
+    set(USERHOME $ENV{HOME})
+endif()
+set(sdkVersion 2.0.0)
+set(toolchainVersion 13_2_Rel1)
+set(picotoolVersion 2.0.0)
+set(picoVscode ${USERHOME}/.pico-sdk/cmake/pico-vscode.cmake)
+if (EXISTS ${picoVscode})
+    include(${picoVscode})
+endif()
+# ====================================================================================
+set(PICO_BOARD arduino_nano_rp2040_connect CACHE STRING "Board type")
+
+# Pull in Raspberry Pi Pico SDK (must be before project)
+include(pico_sdk_import.cmake)
+
+project(M2_Embedded C CXX ASM)
+
+# Initialise the Raspberry Pi Pico SDK
+pico_sdk_init()
+
+# Add executable. Default name is the project name, version 0.1
+
+add_executable(M2_Embedded M2_Embedded.c
+Dc_Motor.c 
+Dc_Motor.h
+led.c
+led.h
+Flame_Sensor.c
+Flame_Sensor.h
+PIR_Sensor.c
+PIR_Sensor.h
+i2c_helper.c
+i2c_helper.h
+Servo_Motor.h
+Servo_Motor.c
+Temp_Sensor.h
+Temp_Sensor.c
+Buzzer.h
+Buzzer.c)
+
+pico_set_program_name(M2_Embedded "M2_Embedded")
+pico_set_program_version(M2_Embedded "0.1")
+
+# Modify the below lines to enable/disable output over UART/USB
+pico_enable_stdio_uart(M2_Embedded 0)
+pico_enable_stdio_usb(M2_Embedded 1)
+
+# Add the standard library to the build
+target_link_libraries(M2_Embedded
+        pico_stdlib
+        hardware_adc
+        hardware_pwm
+        hardware_i2c
+        )
+
+# Add the standard include files to the build
+target_include_directories(M2_Embedded PRIVATE
+  ${CMAKE_CURRENT_LIST_DIR}
+)
+
+pico_add_extra_outputs(M2_Embedded)
+
