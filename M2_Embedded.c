@@ -1,14 +1,16 @@
 #include <stdio.h>
 #include "pico/stdlib.h"
+#include "Buzzer.h"
+#include "Dc_Motor.h"
 #include "Flame_Sensor.h"
+#include "led.h"
+#include "PIR_Sensor.h"
+#include "Servo_Motor.h"
+#include "Temp_Sensor.h"
+#include "hardware/adc.h"
+#include "hardware/gpio.h"
 
-
-
-
-
-#define FLAME_SENSOR_PIN 26  
-#define LED_PIN 4            
-#define THRESHOLD 512        
+/*
 
 void setup() {
     stdio_init_all();              
@@ -16,7 +18,7 @@ void setup() {
     gpio_set_dir(LED_PIN, GPIO_OUT);
     flameSensor_init(FLAME_SENSOR_PIN);  
 }
-
+*/
 int main() {
     setup();
     while (true) {

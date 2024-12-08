@@ -1,18 +1,15 @@
 #include "Temp_Sensor.h"
 #include "hardware/adc.h"
-#include "pico/stdlib.h"
 
- 
-void sensor_init(uint ADC_PIN) {
+void temperature_sensor_init(void) {
     adc_init();
-    adc_gpio_init(ADC_PIN);
-    adc_select_input(0);  
+    adc_set_temp_sensor_enabled(true);
+    adc_select_input(4);
 }
 
-float sensor_read_temperature() {
-    const float conversion_factor = 3.3f / (1 << 12);  
+float read_temperature(void) {
     uint16_t result = adc_read();
-    float voltage = result * conversion_factor;
-    float temperature = (voltage - 0.5) * 100.0;
+    float voltage = result * 3.3f / (1 << 12); // Convert ADC value to voltage
+    float temperature = 27 - (voltage - 0.706) / 0.001721; // Simplified formula to calculate temperature
     return temperature;
 }

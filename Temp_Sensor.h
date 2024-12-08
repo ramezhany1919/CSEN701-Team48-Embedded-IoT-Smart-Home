@@ -1,7 +1,11 @@
-#ifndef SENSOR_H
-#define SENSOR_H
+#ifndef TEMPERATURE_SENSOR_H
+#define TEMPERATURE_SENSOR_H
 
-void sensor_init(uint ADC_PIN);
-float sensor_read_temperature();
+#include "pico/stdlib.h"
+
+
+
+void temperature_sensor_init(void);
+float read_temperature(void);
 
 #endif

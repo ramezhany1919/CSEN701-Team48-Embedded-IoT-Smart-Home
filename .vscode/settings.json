@@ -46,6 +46,7 @@
         "pir_sensor.h": "c",
         "i2c.h": "c",
         "temp_sensor.h": "c",
-        "binary_info.h": "c"
+        "binary_info.h": "c",
+        "gpio.h": "c"
     }
 }
