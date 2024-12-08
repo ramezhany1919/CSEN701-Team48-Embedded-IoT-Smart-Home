@@ -60,12 +60,18 @@ pico_set_program_version(M2_Embedded "0.1")
 pico_enable_stdio_uart(M2_Embedded 0)
 pico_enable_stdio_usb(M2_Embedded 1)
 
+
+include_directories(FreeRTOS/Source/include)
+include_directories(FreeRTOS/Source/portable/GCC/ARM_CM0)
+file(GLOB FREERTOS_SOURCES FreeRTOS/Source/*.c FreeRTOS/Source/portable/MemMang/heap_4.c FreeRTOS/Source/portable/GCC/ARM_CM0/*.c)
+target_sources(M2_Embedded PRIVATE ${FREERTOS_SOURCES})
 # Add the standard library to the build
 target_link_libraries(M2_Embedded
         pico_stdlib
         hardware_adc
         hardware_pwm
         hardware_i2c
+        FreeRTOS
         )
 
 # Add the standard include files to the build

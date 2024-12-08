@@ -2,8 +2,8 @@
 #include "hardware/adc.h"
 #include "pico/stdlib.h"
 
-static const uint ADC_PIN = 26;  
-void sensor_init() {
+ 
+void sensor_init(uint ADC_PIN) {
     adc_init();
     adc_gpio_init(ADC_PIN);
     adc_select_input(0);  

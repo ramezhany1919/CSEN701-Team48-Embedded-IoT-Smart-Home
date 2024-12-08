@@ -2,7 +2,7 @@
 #include <stdio.h>
 uint slice_num;
 
-void motor_init() {
+void motor_init(uint MOTOR_PWM_PIN,uint MOTOR_DIR_PIN1,uint MOTOR_DIR_PIN2) {
     
     gpio_init(MOTOR_DIR_PIN1);
     gpio_set_dir(MOTOR_DIR_PIN1, GPIO_OUT);
@@ -23,7 +23,7 @@ void motor_init() {
     pwm_set_enabled(slice_num, true);
 }
 
-void motor_control(uint16_t speed, bool forward) {
+void motor_control(uint16_t speed, bool forward,uint MOTOR_PWM_PIN,uint MOTOR_DIR_PIN1,uint MOTOR_DIR_PIN2) {
     
     if (speed > 255) speed = 255;
 

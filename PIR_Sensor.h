@@ -4,10 +4,10 @@
 #include "pico/stdlib.h"
 
 
-#define IR_SENSOR_PIN 4
 
 
-void ir_sensor_init(void);
-bool ir_sensor_detect(void);
+
+void ir_sensor_init(uint IR_SENSOR_PIN);
+bool ir_sensor_detect(uint IR_SENSOR_PIN);
 
 #endif

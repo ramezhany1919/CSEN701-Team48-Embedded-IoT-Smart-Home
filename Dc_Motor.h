@@ -5,11 +5,9 @@
 #include "hardware/pwm.h"  
 
 
-#define MOTOR_PWM_PIN 29       
-#define MOTOR_DIR_PIN1 6      
-#define MOTOR_DIR_PIN2 7      
+  
 
-void motor_init(void);
-void motor_control(uint16_t speed, bool forward);
+void motor_init(uint MOTOR_PWM_PIN,uint MOTOR_DIR_PIN1,uint MOTOR_DIR_PIN2);
+void motor_control(uint16_t speed, bool forward,uint MOTOR_PWM_PIN,uint MOTOR_DIR_PIN1,uint MOTOR_DIR_PIN2);
 
 #endif // MOTOR_CONTROL_H

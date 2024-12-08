@@ -2,6 +2,10 @@
 #include "pico/stdlib.h"
 #include "Flame_Sensor.h"
 
+
+
+
+
 #define FLAME_SENSOR_PIN 26  
 #define LED_PIN 4            
 #define THRESHOLD 512        
