@@ -47,6 +47,7 @@
         "i2c.h": "c",
         "temp_sensor.h": "c",
         "binary_info.h": "c",
-        "gpio.h": "c"
+        "gpio.h": "c",
+        "cyw43_arch.h": "c"
     }
 }

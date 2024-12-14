@@ -23,15 +23,22 @@ if (EXISTS ${picoVscode})
     include(${picoVscode})
 endif()
 # ====================================================================================
-set(PICO_BOARD arduino_nano_rp2040_connect CACHE STRING "Board type")
+set(PICO_BOARD pico_w CACHE STRING "Board type")
 
 # Pull in Raspberry Pi Pico SDK (must be before project)
 include(pico_sdk_import.cmake)
+
+
 
 project(M2_Embedded C CXX ASM)
 
 # Initialise the Raspberry Pi Pico SDK
 pico_sdk_init()
+message("Running makefsdata python script")
+execute_process(COMMAND
+    py makefsdata.py
+    WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
+)
 
 # Add executable. Default name is the project name, version 0.1
 
@@ -51,7 +58,8 @@ Servo_Motor.c
 Temp_Sensor.h
 Temp_Sensor.c
 Buzzer.h
-Buzzer.c)
+Buzzer.c
+)
 
 pico_set_program_name(M2_Embedded "M2_Embedded")
 pico_set_program_version(M2_Embedded "0.1")
@@ -61,17 +69,15 @@ pico_enable_stdio_uart(M2_Embedded 0)
 pico_enable_stdio_usb(M2_Embedded 1)
 
 
-include_directories(FreeRTOS/Source/include)
-include_directories(FreeRTOS/Source/portable/GCC/ARM_CM0)
-file(GLOB FREERTOS_SOURCES FreeRTOS/Source/*.c FreeRTOS/Source/portable/MemMang/heap_4.c FreeRTOS/Source/portable/GCC/ARM_CM0/*.c)
-target_sources(M2_Embedded PRIVATE ${FREERTOS_SOURCES})
+
 # Add the standard library to the build
 target_link_libraries(M2_Embedded
         pico_stdlib
         hardware_adc
         hardware_pwm
         hardware_i2c
-        FreeRTOS
+        pico_cyw43_arch_lwip_threadsafe_background
+        pico_lwip_http
         )
 
 # Add the standard include files to the build
