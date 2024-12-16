@@ -11,8 +11,8 @@
 
 
 // WIFI Credentials - take care if pushing to GitHub!
-const char WIFI_SSID[] = "Omar3";
-const char WIFI_PASSWORD[] = "thinktank@3";
+const char WIFI_SSID[] = "xxx";
+const char WIFI_PASSWORD[] = "xxx";
 
 
 void init_wifi(){
