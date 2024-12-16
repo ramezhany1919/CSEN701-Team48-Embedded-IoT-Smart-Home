@@ -6,6 +6,7 @@
 #include "lwipopts.h"
 #include "ssi.h"
 #include "cgi.h"
+#include "lcd.h"
 #include "hardware/irq.h"
 
 
@@ -59,6 +60,7 @@ void setup_compontents(){
     ir_sensor_init(GARAGE_PIR_SENSOR_PIN);
     ir_sensor_init(ENTRANCE_PIR_SENSOR_PIN);
     setServo(GARAGE_SERVO_PIN_WIFI,0);
+   
 }
 
 
@@ -83,23 +85,38 @@ void gpio_isr(uint gpio, uint32_t events) {
     }
 }
 
+void flame_alaram(bool flame_detected_func){
+  if(flame_detected_func){
+    gpio_put(FLAME_SENSOR_LED_PIN, true);
+    gpio_put(BUZZER_PIN, true);
+  }
+  else{
+    gpio_put(FLAME_SENSOR_LED_PIN, false);
+    gpio_put(BUZZER_PIN, false);
+  }
+}
+
+
+
 int main() {
     stdio_init_all();
     //INIT-WIFI SETUP
     init_wifi();
+    lcd_init();
+    lcd_set_cursor(0,0);
+    lcd_send_string("Welcome Home");
 
     setup_compontents();
     //GPIO INTERRUPT
-    gpio_set_irq_enabled_with_callback(FLAME_SENSOR_PIN,GPIO_IRQ_EDGE_RISE | GPIO_IRQ_EDGE_FALL, true, &gpio_isr);
- 
-
-    irq_set_priority(IO_IRQ_BANK0, 0);
-    irq_set_enabled(IO_IRQ_BANK0, true); 
 
 
   while (1) {
-    bool flame_detected = gpio_get(FLAME_SENSOR_PIN);
-    printf("Flame sensor reading: %d\n", flame_detected);
+    int flame_read=flameSensor_read(FLAME_SENSOR_PIN);
+    if(!flame_read){
+      flame_detected_function = true;
+    }
+    flame_alaram(flame_detected_function);
+   
 
     int ir_entrance = ir_sensor_detect(ENTRANCE_PIR_SENSOR_PIN);
     printf("IR Entrance sensor state: %d\n", ir_entrance);  // Print the state of the entrance sensor

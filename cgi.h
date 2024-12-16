@@ -21,7 +21,7 @@
 //DC MOTOR PINS
 #define DC_MOTOR_DIR_PIN1_WIFI 6
 #define DC_MOTOR_DIR_PIN2_WIFI 7
-#define DC_MOTOR_PWM_PIN_WIFI 8
+#define DC_MOTOR_PWM_PIN_WIFI 1
 
 //BUZZER PIN
 #define BUZZER_PIN 28
@@ -36,6 +36,9 @@
 // Global variables
 bool garage_is_open = false;
 uint64_t last_web_command_time = 0;
+
+//Boolean FireSystem
+bool flame_detected_function = false;
 
 // CGI handler which is run when a request for /led.cgi is detected
 
@@ -112,7 +115,16 @@ const char * cgi_fan_handler(int iIndex, int iNumParams, char *pcParam[], char *
     return "/index.shtml";  // Redirect to home page after action
 }
 
-
+const char * cgi_safe_mode_handler(int iIndex, int iNumParams, char *pcParam[], char *pcValue[]) {
+    for (int i = 0; i < iNumParams; i++) {
+        if (strcmp(pcParam[i], "safeMode") == 0) {
+            if (strcmp(pcValue[i], "1") == 0) {
+              flame_detected_function=false; // Example position to open
+            } 
+        }
+    }
+    return "/index.shtml";  // Redirect to home page after action
+}
 
 
 
@@ -122,12 +134,14 @@ static const tCGI cgi_handlers[] = {
     { "/led.cgi", cgi_led_handler },
     { "/garage.cgi", cgi_garage_handler },
     { "/window.cgi", cgi_window_handler },
-    { "/fan.cgi", cgi_fan_handler }
+    { "/fan.cgi", cgi_fan_handler } ,
+    { "/safeMode.cgi", cgi_safe_mode_handler }
+
     
 };
 
 
 void cgi_init(void)
 {
-    http_set_cgi_handlers(cgi_handlers,4);
+    http_set_cgi_handlers(cgi_handlers,5);
 }

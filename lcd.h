@@ -7,12 +7,12 @@
 #include "pico/stdlib.h"
 
 // Define GPIO pins for LCD
-#define LCD_RS 4  // Register Select pin
-#define LCD_E  26  // Enable pin
-#define LCD_D4 27  // Data pin 4
-#define LCD_D5 28  // Data pin 5
-#define LCD_D6 29  // Data pin 6
-#define LCD_D7 12  // Data pin 7
+#define LCD_RS 15  // Register Select pin
+#define LCD_E  13  // Enable pin
+#define LCD_D4 12  // Data pin 4
+#define LCD_D5 11  // Data pin 5
+#define LCD_D6 10  // Data pin 6
+#define LCD_D7 9  // Data pin 7
 
 // Function prototypes
 void lcd_init(void);

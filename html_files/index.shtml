@@ -1,34 +1,103 @@
 <!DOCTYPE html>
-<html>
-    <head> 
-        <title>PicoW Webserver</title> 
-    </head>
-    <body>
-        <h1>PicoW Webserver Tutorial</h1>
-        <br>
-        <h2>This bit is SSI:</h2>
-        <p>Voltage: <!--#volt--></p>
-        <p>Temp: <!--#temp--> C</p>
-        <p>LED is: <!--#led--></p>
-        <br>
-        <h2>This bit is CGI:</h2>
-        <br>
-        <a href="/garage.cgi?garage=1"><button>Open Garage</button></a>
-        <a href="/garage.cgi?garage=0"><button>Close Garage</button></a>
-        <br>
-        <a href="/window.cgi?window=1"><button>Open Window</button></a>
-        <a href="/window.cgi?window=0"><button>Close Window</button></a>
-        <br>
-        <a href="/led.cgi?led=1"><button>Open entrance light</button></a>
-        <a href="/led.cgi?led=0"><button>Close entrance light</button></a>
-        <br>
-        <br>
-        <a href="/fan.cgi?fan=0"><button>Close Fan</button></a>
-        <a href="/fan.cgi?fan=1"><button>Open fan level-1</button></a>
-        <a href="/fan.cgi?fan=2"><button>Open fan level-2</button></a>
-        <a href="/fan.cgi?fan=3"><button>Open fan level-3</button></a>
-        <br>
-        <br>
-        <a href="/index.shtml">Refresh</a>
-    </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PicoW Webserver Tutorial</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        .section {
+            background: white;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .button-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .button, .emergency-button {
+            display: block;
+            background-color: #ff4444; /* Default for OFF buttons */
+            color: white;
+            text-align: center;
+            padding: 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .button.on {
+            background-color: #44c767; /* Green for ON buttons */
+        }
+
+        .emergency-button {
+            background-color: #dc3545; /* Darker red for emergency */
+            font-size: 16px;
+            margin-top: 20px; /* Separation from other controls */
+        }
+
+        .emergency-button:hover {
+            background-color: #c82333;
+        }
+
+        .refresh-button {
+            background-color: #6c757d; /* Bootstrap secondary color for neutral look */
+            margin-top: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .button-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>PicoW Webserver Tutorial</h1>
+
+    <div class="section">
+        <h2>Garage</h2>
+        <div class="button-container">
+            <a href="/garage.cgi?garage=1" class="button on">Open Garage</a>
+            <a href="/garage.cgi?garage=0" class="button">Close Garage</a>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Window</h2>
+        <div class="button-container">
+            <a href="/window.cgi?window=1" class="button on">Open Window</a>
+            <a href="/window.cgi?window=0" class="button">Close Window</a>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Fan Control</h2>
+        <div class="button-container">
+            <a href="/fan.cgi?fan=1" class="button on">Fan Level-1</a>
+            <a href="/fan.cgi?fan=2" class="button on">Fan Level-2</a>
+            <a href="/fan.cgi?fan=3" class="button on">Fan Level-3</a>
+            <a href="/fan.cgi?fan=0" class="button">Close Fan</a>
+        </div>
+    </div>
+
+    <a href="/safeMode.cgi?safeMode=1" class="button emergency-button">Safe Mode</a>
+    <a href="/index.shtml" class="">Refresh</a>
+</body>
 </html>
