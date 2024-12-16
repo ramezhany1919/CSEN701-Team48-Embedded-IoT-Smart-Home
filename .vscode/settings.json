@@ -48,6 +48,9 @@
         "temp_sensor.h": "c",
         "binary_info.h": "c",
         "gpio.h": "c",
-        "cyw43_arch.h": "c"
+        "cyw43_arch.h": "c",
+        "led.h": "c",
+        "servo_motor.h": "c",
+        "irq.h": "c"
     }
 }

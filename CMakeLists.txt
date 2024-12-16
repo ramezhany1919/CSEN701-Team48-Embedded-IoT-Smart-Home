@@ -59,7 +59,8 @@ Temp_Sensor.h
 Temp_Sensor.c
 Buzzer.h
 Buzzer.c
-)
+lcd.h
+lcd.c)
 
 pico_set_program_name(M2_Embedded "M2_Embedded")
 pico_set_program_version(M2_Embedded "0.1")
@@ -78,6 +79,7 @@ target_link_libraries(M2_Embedded
         hardware_i2c
         pico_cyw43_arch_lwip_threadsafe_background
         pico_lwip_http
+        hardware_irq
         )
 
 # Add the standard include files to the build

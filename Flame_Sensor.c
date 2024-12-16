@@ -3,12 +3,12 @@
 static uint adc_channel;
 
 void flameSensor_init(uint gpio_pin) {
-    adc_init(); 
-    adc_gpio_init(gpio_pin); 
-    adc_channel = gpio_pin - 26; 
-    adc_select_input(adc_channel); 
+    gpio_init(gpio_pin);
+    gpio_set_dir(gpio_pin, GPIO_IN);
+   gpio_pull_up(gpio_pin); // Explicitly ensure the pull-up is enabled if needed
+
 }
 
-int flameSensor_read() {
-    return adc_read(); 
+int flameSensor_read(uint gpio_pin) {
+    return gpio_get(gpio_pin);
 }
